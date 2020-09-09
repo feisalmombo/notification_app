@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Notifications</ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+  <ion-list #scheduleList>   
+
+      <ion-item-sliding *ngFor="let notification of notifications">
+        <ion-item #slidingItem [attr.track]="notification.status | lowercase">
+
+          <!-- [queryParams]="{record:investment | json }" -->
+          <ion-label>
+            <h2>
+              {{ notification.subject }} |{{ notification.created_at }}
+            </h2>
+            <h3></h3>
+            <p>
+            {{ notification.contact_message }} 
+            </p>
+          </ion-label>
+        </ion-item>
+     
+      </ion-item-sliding>
+  </ion-list>
+</ion-content>

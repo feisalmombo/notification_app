@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-segment [(ngModel)]="segment" (ionChange)="updateInvestment()">
+      <ion-segment-button value="all">
+            All
+      </ion-segment-button>
+      <ion-segment-button value="payinc">
+        Ongoing
+      </ion-segment-button>
+      <ion-segment-button value="paycomp">
+        Done
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateInvestment()" placeholder="Search"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list >
+    <ion-item-group *ngFor="let investment of investmentsData" [hidden]="investment.hide" >
+      <ion-item-divider sticky>
+        <ion-label>
+          {{investment.project}}
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item-sliding *ngFor="let investment of investment.investments"  [hidden]="investment.hide" #slidingItem [attr.track]="investment.status | lowercase">
+        <ion-item (click)="goMoDetails(investment)">
+          <!-- [queryParams]="{record:investment | json }" -->
+          <ion-label>
+            <h3>
+              {{investment.project_title}} : {{investment.quantity}} {{investment.project_unit}}
+            </h3>
+            <p>
+            {{investment.investment_starting_date | date:'short'}} &mdash;  {{investment.investment_starting_date | date:'shortDate'}} : {{investment.total_cost+" TZS"}}
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="favorite"  *ngIf="segment === 'all'">
+            Favorite
+          </ion-item-option>
+          <ion-item-option color="danger" *ngIf="segment === 'favorites'">
+            Remove
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list-header [hidden]="shownInvestments > 0">
+    No Sessions Found
+  </ion-list-header>
+
+
+
+  
+</ion-content>

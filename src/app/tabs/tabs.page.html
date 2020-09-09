@@ -1,0 +1,21 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="investments">
+      <ion-icon name="flash"></ion-icon>
+      <ion-label>Investments</ion-label>
+    </ion-tab-button>   
+    
+    <ion-tab-button tab="projects">
+      <ion-icon name="apps"></ion-icon>
+      <ion-label>Projects</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="notifications" badge="9">
+      <ion-icon name="alert"></ion-icon>
+      
+      <ion-label>Notifications</ion-label>
+      <ion-badge color="primary">{{ obs$ | async }}</ion-badge>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

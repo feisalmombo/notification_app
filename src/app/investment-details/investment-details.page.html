@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+     <ion-buttons slot="start"> 
+      <ion-back-button></ion-back-button>
+    </ion-buttons> 
+
+    <ion-segment [(ngModel)]="segment" (ionChange)="updateInvesDet()">
+      <ion-segment-button value="info">
+            Info
+      </ion-segment-button>
+      <ion-segment-button value="consolidations">
+       Consolidations
+      </ion-segment-button>
+      <ion-segment-button value="payments" *ngIf="data.ripped 'true'">
+        Payments
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+<!-- Info Tabs -->
+<div class="ion-padding" *ngIf="segment === 'info'">
+    <h1>{{data.project_title}}</h1>
+    <p>{{data.quantity}} - {{data.project_unit}}</p>
+    <ion-text color="medium">
+      {{data.investment_date}} &ndash; {{data.investment_starting_date}}
+    <br/>
+       Remaining :  3 months & 4 days to mature
+      </ion-text>
+  </div>
+
+
+  <!-- list for consolidations -->
+  <ion-list  *ngIf="segment === 'consolidations'"> 
+      <ion-item-sliding *ngFor="let paycat of data.payment_categories" #slidingItem [attr.track]="paycat.status | lowercase">
+        <ion-item>
+            <ion-label>
+            <h3>{{segment}}
+                {{paycat.payment_category}} costs - {{paycat.total_cost}} TZS
+              </h3>             
+                <p>
+                Total payments : {{paycat.total_pay }} TZS  &mdash; Outstanding amount : {{paycat.oustanding_amount}} TZS 
+                </p>
+              </ion-label>
+        </ion-item>
+      
+      </ion-item-sliding>
+  </ion-list>
+  <ion-list-header [hidden]="data.payment_categories.length > 0"> 
+    No Payments data
+  </ion-list-header> 
+
+
+
+</ion-content>
